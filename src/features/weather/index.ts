@@ -1,5 +1,5 @@
 import SummaryWeather from "./summary";
-import HighlightWeather from "./highlight";
 import HistoryWeather from "./history";
+import ForecastWeather from "./forecast";
 
-export { SummaryWeather, HighlightWeather, HistoryWeather };
+export { SummaryWeather, ForecastWeather, HistoryWeather };

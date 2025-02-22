@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 export interface baseButtonI {
   children: ReactNode;
-  onClickHandler: () => void;
+  onClickHandler: (e?: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   variant?: ButtonVariantE;
 }

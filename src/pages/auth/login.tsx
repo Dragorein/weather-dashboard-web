@@ -9,30 +9,37 @@ const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-        <BaseCard>
-            <BaseText align={TextAlignE.CENTER} variant={TextVariantE.H4}>Login</BaseText>
-            <BaseInputText
-                id="email"
-                name="Email"
-                onChangeHandler={(e) => setEmail(e.target.value)}
-                value={email}
-                required
-            />
-            <PasswordInput
-                id="password"
-                name="Password"
-                onChangeHandler={(e) => setPassword(e.target.value)}
-                value={password}
-                required
-                show={showPassword}
-                showHandler={() => setShowPassword((prev) => !prev)}
-            />
-            <BaseButton
-                onClickHandler={() => console.log('login is pressed')}
-            >
-                <BaseText variant={TextVariantE.BUTTON}>Login</BaseText>
-            </BaseButton>
-        </BaseCard>
+        <div style={{
+            display : 'flex',
+            height : "100vh",
+            justifyContent : 'center',
+            alignItems : 'center',
+        }}>
+            <BaseCard>
+                <BaseText align={TextAlignE.CENTER} variant={TextVariantE.H4}>Login</BaseText>
+                <BaseInputText
+                    id="email"
+                    name="Email"
+                    onChangeHandler={(e) => setEmail(e.target.value)}
+                    value={email}
+                    required
+                />
+                <PasswordInput
+                    id="password"
+                    name="Password"
+                    onChangeHandler={(e) => setPassword(e.target.value)}
+                    value={password}
+                    required
+                    show={showPassword}
+                    showHandler={() => setShowPassword((prev) => !prev)}
+                />
+                <BaseButton
+                    onClickHandler={() => console.log('login is pressed')}
+                >
+                    <BaseText variant={TextVariantE.BUTTON}>Login</BaseText>
+                </BaseButton>
+            </BaseCard>
+        </div>
     )
 }
 

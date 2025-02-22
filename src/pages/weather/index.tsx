@@ -1,6 +1,7 @@
 
 import { SearchInput } from "@/components/atoms";
-import { HighlightWeather, HistoryWeather, SummaryWeather } from "@/features";
+import { HeaderMenu } from "@/components/molecules";
+import { ForecastWeather, HistoryWeather, SummaryWeather } from "@/features";
 import { Box } from "@mui/material";
 import { useState } from "react";
 
@@ -9,16 +10,26 @@ const WeatherPage = () => {
 
     const searchHandler = () => {
         console.log("search : ", search);
-        
     }
 
     return (
-        <>
-            <Box>
+        <Box sx={{
+            display : 'flex',
+            flex : 1,
+            flexDirection : 'column',
+            backgroundColor : 'yellow',
+            paddingX : 2
+        }}>
+            <Box sx={{
+                 display:'flex',
+                 paddingY : 1,
+                 justifyContent : 'space-between',
+                 backgroundColor: 'green',
+            }}>
                 <SearchInput id="search" onChangeHandler={(e) => setSearch(e.target.value)} value={search} searchHandler={searchHandler} />
+                <HeaderMenu name="USER" />
             </Box>
             <Box sx={{
-                minHeight : '100%',
                 display : 'flex',
                 flex : 1,
                 flexDirection : 'column'
@@ -29,8 +40,18 @@ const WeatherPage = () => {
                     paddingY : 1,
                     backgroundColor: 'red'
                 }}>
-                    <SummaryWeather/>
-                    <HighlightWeather/>
+                    <Box sx={{
+                        display : 'flex',
+                        flex : 4
+                    }}>
+                        <SummaryWeather/>
+                    </Box>
+                    <Box sx={{
+                        display : 'flex',
+                        flex : 8
+                    }}>
+                        <ForecastWeather/>
+                    </Box>
                 </Box>
                 <Box sx={{
                     display:'flex',
@@ -41,7 +62,7 @@ const WeatherPage = () => {
                     <HistoryWeather />
                 </Box>
             </Box>
-        </>
+        </Box>
     )
 }
 

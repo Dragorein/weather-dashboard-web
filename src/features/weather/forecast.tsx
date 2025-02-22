@@ -1,7 +1,7 @@
 import { BaseCard } from "@/components/atoms"
-import { Box } from "@mui/material"
+import { Box } from "@mui/material";
 
-const HistoryWeather = () => {
+const ForecastWeather = () => {
     return (
         <Box sx={{
             display:'flex',
@@ -10,10 +10,10 @@ const HistoryWeather = () => {
             backgroundColor: 'blue'
         }}>
             <BaseCard>
-                History
+                Forecast
             </BaseCard>
         </Box>
     )
 }
 
-export default HistoryWeather;
+export default ForecastWeather;
