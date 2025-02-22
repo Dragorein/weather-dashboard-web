@@ -1,12 +1,22 @@
 import { BaseButton, BaseText, BaseInputText, PasswordInput } from "@/components/atoms";
 import BaseCard from "@/components/atoms/Container/card";
 import { TextAlignE, TextVariantE } from "@/enums";
+import { LoginService } from "@/services";
 import { useState } from "react";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+
+    const loginHandler = async () => {
+        const data = await LoginService({
+            email : email,
+            password : password
+        });
+
+        console.log("data", data.data);
+    }
 
     return (
         <div style={{
@@ -34,7 +44,7 @@ const LoginPage = () => {
                     showHandler={() => setShowPassword((prev) => !prev)}
                 />
                 <BaseButton
-                    onClickHandler={() => console.log('login is pressed')}
+                    onClickHandler={loginHandler}
                 >
                     <BaseText variant={TextVariantE.BUTTON}>Login</BaseText>
                 </BaseButton>
