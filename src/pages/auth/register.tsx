@@ -1,5 +1,6 @@
 import { BaseButton, BaseCard, BaseInputText, BaseText, PasswordInput } from "@/components/atoms";
 import { TextAlignE, TextVariantE } from "@/enums";
+import { RegisterService } from "@/services";
 import { useState } from "react";
 
 const RegisterPage = () => {
@@ -9,6 +10,17 @@ const RegisterPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+
+        const registerHandler = async () => {
+            
+            const data = await RegisterService({
+                name : name,
+                email : email,
+                password : password
+            });
+    
+            console.log("data", data.data);
+        }
 
     return (
         <div style={{
@@ -52,7 +64,7 @@ const RegisterPage = () => {
                     showHandler={() => setShowPasswordConfirm((prev) => !prev)}
                 />
                 <BaseButton
-                    onClickHandler={() => console.log('register is pressed')}
+                    onClickHandler={registerHandler}
                 >
                     <BaseText variant={TextVariantE.BUTTON}>Register</BaseText>
                 </BaseButton>

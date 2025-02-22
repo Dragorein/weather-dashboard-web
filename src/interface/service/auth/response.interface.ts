@@ -3,5 +3,7 @@ export interface resLoginI {
 }
 
 export interface resRegisterI {
-  id: string;
+  data: {
+    id: string;
+  };
 }
