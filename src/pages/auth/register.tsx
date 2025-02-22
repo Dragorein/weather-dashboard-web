@@ -1,7 +1,9 @@
-import { BaseButton, BaseCard, BaseInputText, BaseText, PasswordInput } from "@/components/atoms";
+import { BaseButton, BaseCard, BaseInputText, BaseText, ClickableText, PasswordInput } from "@/components/atoms";
 import { TextAlignE, TextVariantE } from "@/enums";
 import { RegisterService } from "@/services";
-import { useState } from "react";
+import { Box } from "@mui/material";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const RegisterPage = () => {
     const [name, setName] = useState("");
@@ -11,16 +13,28 @@ const RegisterPage = () => {
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
-        const registerHandler = async () => {
-            
-            const data = await RegisterService({
-                name : name,
-                email : email,
-                password : password
-            });
-    
-            console.log("data", data.data);
+    const router = useRouter();
+
+    const token = typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
+    useEffect(() => {
+        if (token) {
+            router.replace('/weather')
         }
+    })
+
+    const registerHandler = async () => {
+        const data = await RegisterService({
+            name : name,
+            email : email,
+            password : password
+        });
+
+        router.push('/auth/login');
+    }
+
+    const backToLogin = () => {
+        router.push('/auth/login');
+    }
 
     return (
         <div style={{
@@ -68,6 +82,9 @@ const RegisterPage = () => {
                 >
                     <BaseText variant={TextVariantE.BUTTON}>Register</BaseText>
                 </BaseButton>
+                <Box sx={{display : 'flex', flexDirection:'row'}} gap={1}>
+                    <BaseText>Already have an account?</BaseText><ClickableText onClickHandler={backToLogin}>Login</ClickableText>
+                </Box>
             </BaseCard>
         </div>
     )

@@ -2,12 +2,23 @@ import { BaseButton, BaseText, BaseInputText, PasswordInput } from "@/components
 import BaseCard from "@/components/atoms/Container/card";
 import { TextAlignE, TextVariantE } from "@/enums";
 import { LoginService } from "@/services";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    
+    const router = useRouter();
+
+    const token = typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
+
+    useEffect(() => {
+        if (token) {
+            router.replace('/weather')
+        }
+    })
 
     const loginHandler = async () => {
         const data = await LoginService({
@@ -15,7 +26,8 @@ const LoginPage = () => {
             password : password
         });
 
-        console.log("data", data.data);
+        sessionStorage.setItem('token', data.data);
+        router.replace('/weather')
     }
 
     return (

@@ -5,3 +5,7 @@ export interface baseTextI {
   variant?: TextVariantE;
   align?: TextAlignE;
 }
+
+export interface ClickableTextI extends baseTextI {
+  onClickHandler: () => void;
+}

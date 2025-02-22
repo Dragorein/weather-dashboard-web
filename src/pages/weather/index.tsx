@@ -3,7 +3,8 @@ import { SearchInput } from "@/components/atoms";
 import { HeaderMenu } from "@/components/molecules";
 import { ForecastWeather, HistoryWeather, SummaryWeather } from "@/features";
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const WeatherPage = () => {
     const [search, setSearch] = useState("");
@@ -11,6 +12,15 @@ const WeatherPage = () => {
     const searchHandler = () => {
         console.log("search : ", search);
     }
+
+    const router = useRouter();
+    const token = typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
+
+    useEffect(() => {
+        if (!token) {
+            router.replace('/auth/login')
+        }
+    })
 
     return (
         <Box sx={{
