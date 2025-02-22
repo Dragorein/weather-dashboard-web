@@ -5,9 +5,8 @@ const BaseCard = ({children} : baseCardI) => {
     return (
         <Card
             style={{
-                width : '25%',
-                minHeight : '30vh',
                 display : 'flex',
+                flex : 1,
                 flexDirection : 'column',
                 padding : 24,
                 gap : 12

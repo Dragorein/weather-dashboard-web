@@ -2,7 +2,7 @@ import React from "react";
 
 export interface baseInputI {
   id: string;
-  name: string;
+  name?: string;
   onChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   //   type?:
   required?: boolean;
@@ -14,4 +14,8 @@ export interface baseInputI {
 export interface PasswordInputI extends baseInputI {
   show: boolean;
   showHandler: () => void;
+}
+
+export interface SearchInputI extends baseInputI {
+  searchHandler: () => void;
 }
