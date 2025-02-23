@@ -33,8 +33,6 @@ const LoginPage = () => {
         if (!email) {
             newErrors.email = "Email is required";
         } else {
-            console.log(validateEmail(email));
-            
             if (!validateEmail(email)) {
                 newErrors.email = "Input is not an email";
             } else {

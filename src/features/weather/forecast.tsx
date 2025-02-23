@@ -20,7 +20,6 @@ const ForecastWeather = ({ data } : {data : resForecastSearchI[]}) => {
                     "&::-webkit-scrollbar-thumb": { background: "#888", borderRadius: 3 }
                 }}>
                     {data.map(item => {
-                        console.log("item", item);
                         return (<BaseCard key={item.id}>
                             <Box sx={{display : 'flex', justifyContent: 'space-between'}} >
                                 <BaseText variant={TextVariantE.H5}>
