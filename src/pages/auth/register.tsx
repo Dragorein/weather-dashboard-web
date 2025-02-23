@@ -1,5 +1,5 @@
 import { TextAlignE, TextVariantE } from "@/common/enums";
-import { BaseButton, BaseCard, BaseInputText, BaseText, ClickableText, PasswordInput } from "@/components/atoms";
+import { BaseButton, BaseCard, BaseInputText, BaseText, ClickableText, ErrorText, PasswordInput } from "@/components/atoms";
 import { RegisterService } from "@/services";
 import { Box } from "@mui/material";
 import { useRouter } from "next/router";
@@ -12,6 +12,7 @@ const RegisterPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+    const [errors, setErrors] = useState({ name: "", email: "", password: "", passwordConfirm: "" });
 
     const router = useRouter();
 
@@ -23,6 +24,39 @@ const RegisterPage = () => {
     })
 
     const registerHandler = async () => {
+        const newErrors = { name: "", email: "", password: "", passwordConfirm: "" };
+        if (!name) {
+            newErrors.name = "name is required";
+        } else {
+            newErrors.name = "";
+        }
+
+        if (!email) {
+            newErrors.email = "Email is required";
+        } else {
+            newErrors.email = "";
+        }
+
+        if (!password) {
+            newErrors.password = "Password is required";
+        } else {
+            newErrors.password = "";
+        }
+
+        if (!passwordConfirm) {
+            newErrors.passwordConfirm = "Password confirmation is required";
+        } else {
+            if (password != passwordConfirm) {
+                newErrors.passwordConfirm = "Password confirmation is mismatch";
+            } else {
+                newErrors.passwordConfirm = "";
+            }
+        }
+
+        setErrors(newErrors);
+
+        if (Object.values(newErrors).some(error => error)) return;
+
         await RegisterService({
             name : name,
             email : email,
@@ -52,6 +86,7 @@ const RegisterPage = () => {
                     value={name}
                     required
                 />
+                {errors.name && <ErrorText>{errors.name}</ErrorText>}
                 <BaseInputText
                     id="email"
                     name="Email"
@@ -59,6 +94,7 @@ const RegisterPage = () => {
                     value={email}
                     required
                 />
+                {errors.email && <ErrorText>{errors.email}</ErrorText>}
                 <PasswordInput
                     id="password"
                     name="Password"
@@ -68,6 +104,7 @@ const RegisterPage = () => {
                     show={showPassword}
                     showHandler={() => setShowPassword((prev) => !prev)}
                 />
+                {errors.password && <ErrorText>{errors.password}</ErrorText>}
                 <PasswordInput
                     id="password-confirmation"
                     name="Password Confirmation"
@@ -77,6 +114,7 @@ const RegisterPage = () => {
                     show={showPasswordConfirm}
                     showHandler={() => setShowPasswordConfirm((prev) => !prev)}
                 />
+                {errors.passwordConfirm && <ErrorText>{errors.passwordConfirm}</ErrorText>}
                 <BaseButton
                     onClickHandler={registerHandler}
                 >
