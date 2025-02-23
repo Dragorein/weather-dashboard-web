@@ -4,10 +4,12 @@ import colors from "@/styles/colors";
 import { Button, Menu, MenuItem } from "@mui/material"
 import { useState } from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import Avatar from '@mui/material/Avatar';
 import Logout from '@mui/icons-material/Logout';
+import { useRouter } from "next/router";
 
-const HeaderMenu = ({ name }: headerMenuI) => {
+const HeaderMenu = ({ name, }: headerMenuI) => {
+    const router = useRouter();
+
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); 
     const open = Boolean(anchorEl);
 
@@ -18,9 +20,10 @@ const HeaderMenu = ({ name }: headerMenuI) => {
         setAnchorEl(null);
       };
 
-    const onProfileHandler = () => {console.log("go to profile"); };
-    
-    const onLogoutHandler = () => { console.log("logout");};
+    const onLogoutHandler = () => { 
+        sessionStorage.clear();
+        router.replace('/auth/login');
+    };
     
     return (
         <>
@@ -43,9 +46,13 @@ const HeaderMenu = ({ name }: headerMenuI) => {
             anchorEl={anchorEl}
             open={open}
             onClose={closeHandler}
+            MenuListProps={{
+                'aria-labelledby': 'basic-button',
+            }}
         >
-            <MenuItem onClick={onProfileHandler}><Avatar /> Profile</MenuItem>
-            <MenuItem onClick={onLogoutHandler}><Logout /> Logout</MenuItem>
+            <MenuItem onClick={onLogoutHandler}>
+                <Logout /> Logout
+            </MenuItem>
         </Menu>
         </>
     )

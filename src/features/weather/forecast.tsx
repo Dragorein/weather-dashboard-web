@@ -12,7 +12,7 @@ const ForecastWeather = ({ data } : {data : resForecastSearchI[]}) => {
                 <Box sx={{
                     display: "flex",
                     whiteSpace: "nowrap",
-                    maxWidth : '80vw',
+                    maxWidth : '77vw',
                     gap: 2,
                     overflow : 'auto',
                     paddingBottom : 2,

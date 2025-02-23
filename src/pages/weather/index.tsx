@@ -10,11 +10,32 @@ import { useEffect, useState } from "react";
 
 const WeatherPage = () => {
     const [search, setSearch] = useState("");
-    const [weather, setWeather] = useState<resWeatherSearchI>();
+    const [weather, setWeather] = useState<resWeatherSearchI>({
+        id: "",
+        city: "",
+        region: "",
+        country: "",
+        lon: 0,
+        lat: 0,
+        condition: "",
+        condition_img: "",
+        humidity: "",
+        cloud: 0,
+        precip_mm: 0,
+        temp_c: 0,
+        temp_f: 0,
+        temp_feel_c: 0,
+        temp_feel_f: 0,
+        heat_index_c: 0,
+        heat_index_f: 0,
+        uv: 0,
+        date: "",
+        time: "",
+    });
     const [forecast, setForecast] = useState<resForecastSearchI[]>([]);
     const [history, setHistory] = useState<resWeatherSearchI[]>([]);
+    const [username, setUsername] = useState<string>('Guest');
 
-    
     const router = useRouter();
     
     const findWeather = async (location : string) => {
@@ -27,6 +48,12 @@ const WeatherPage = () => {
 
     const getInitialData = async () => {
         const token = sessionStorage.getItem('token');
+        const name = sessionStorage.getItem('name');
+
+        if (name) {
+            setUsername(name);
+        }
+
         if (token) {
             if ("geolocation" in navigator) {
                 navigator.geolocation.getCurrentPosition(
@@ -73,7 +100,7 @@ const WeatherPage = () => {
                  justifyContent : 'space-between',
             }}>
                 <SearchInput id="search" onChangeHandler={(e) => setSearch(e.target.value)} value={search} searchHandler={searchHandler} />
-                <HeaderMenu name="USER" />
+                <HeaderMenu name={username} />
             </Box>
             <Box sx={{
                 display : 'flex',

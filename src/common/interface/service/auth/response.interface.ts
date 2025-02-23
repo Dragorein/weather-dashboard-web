@@ -1,5 +1,8 @@
 export interface resLoginI {
-  data: string;
+  data: {
+    name: string;
+    token: string;
+  };
 }
 
 export interface resRegisterI {

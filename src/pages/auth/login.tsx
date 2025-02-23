@@ -1,9 +1,10 @@
-import { BaseButton, BaseText, BaseInputText, PasswordInput } from "@/components/atoms";
+import { BaseButton, BaseText, BaseInputText, PasswordInput, ClickableText } from "@/components/atoms";
 import BaseCard from "@/components/atoms/Container/card";
 import { TextAlignE, TextVariantE } from "@/common/enums";
 import { LoginService } from "@/services";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Box } from "@mui/material";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -20,13 +21,18 @@ const LoginPage = () => {
         }
     })
 
+    const registerUser = () => {
+        router.push('/auth/register');
+    }
+
     const loginHandler = async () => {
         const data = await LoginService({
             email : email,
             password : password
         });
 
-        sessionStorage.setItem('token', data.data);
+        sessionStorage.setItem('token', data.data.token);
+        sessionStorage.setItem('name', data.data.name);
         router.replace('/weather')
     }
 
@@ -60,6 +66,9 @@ const LoginPage = () => {
                 >
                     <BaseText variant={TextVariantE.BUTTON}>Login</BaseText>
                 </BaseButton>
+                <Box sx={{display : 'flex', flexDirection:'row'}} gap={1}>
+                    <BaseText>{`Don't have an account yet?`}</BaseText><ClickableText onClickHandler={registerUser}>Register</ClickableText>
+                </Box>
             </BaseCard>
         </div>
     )

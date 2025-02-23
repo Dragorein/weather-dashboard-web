@@ -1,5 +1,5 @@
-import { BaseButton, BaseCard, BaseInputText, BaseText, ClickableText, PasswordInput } from "@/components/atoms";
 import { TextAlignE, TextVariantE } from "@/common/enums";
+import { BaseButton, BaseCard, BaseInputText, BaseText, ClickableText, PasswordInput } from "@/components/atoms";
 import { RegisterService } from "@/services";
 import { Box } from "@mui/material";
 import { useRouter } from "next/router";
@@ -23,7 +23,7 @@ const RegisterPage = () => {
     })
 
     const registerHandler = async () => {
-        const data = await RegisterService({
+        await RegisterService({
             name : name,
             email : email,
             password : password
