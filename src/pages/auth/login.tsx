@@ -1,18 +1,20 @@
-import { BaseButton, BaseText, BaseInputText, PasswordInput, ClickableText } from "@/components/atoms";
+import { BaseButton, BaseText, BaseInputText, PasswordInput, ClickableText, ErrorText } from "@/components/atoms";
 import BaseCard from "@/components/atoms/Container/card";
 import { TextAlignE, TextVariantE } from "@/common/enums";
 import { LoginService } from "@/services";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
+import { validateEmail } from "@/common/helper";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [errors, setErrors] = useState({ email: "", password: "" });
+
     
     const router = useRouter();
-
     const token = typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
 
     useEffect(() => {
@@ -26,14 +28,42 @@ const LoginPage = () => {
     }
 
     const loginHandler = async () => {
-        const data = await LoginService({
+        const newErrors = { email: "", password: ""};
+        if (!email) {
+            newErrors.email = "Email is required";
+        } else {
+            console.log(validateEmail(email));
+            
+            if (!validateEmail(email)) {
+                newErrors.email = "Input is not an email";
+            } else {
+                newErrors.email = "";
+            }
+        }
+
+        if (!password) {
+            newErrors.password = "Password is required";
+        } else {
+            newErrors.password = "";
+        }
+
+        setErrors(newErrors);
+
+        if (Object.values(newErrors).some(error => error)) return;
+        await LoginService({
             email : email,
             password : password
+        })
+        .then((result) => {
+            
+            sessionStorage.setItem('token', result.data.token);
+            sessionStorage.setItem('name', result.data.name);
+            router.replace('/weather');
+        })
+        .catch(error => {
+            console.log("error", error.response.data.error);
         });
 
-        sessionStorage.setItem('token', data.data.token);
-        sessionStorage.setItem('name', data.data.name);
-        router.replace('/weather')
     }
 
     return (
@@ -52,6 +82,7 @@ const LoginPage = () => {
                     value={email}
                     required
                 />
+                {errors.email && <ErrorText>{errors.email}</ErrorText>}
                 <PasswordInput
                     id="password"
                     name="Password"
@@ -61,6 +92,7 @@ const LoginPage = () => {
                     show={showPassword}
                     showHandler={() => setShowPassword((prev) => !prev)}
                 />
+                {errors.password && <ErrorText>{errors.password}</ErrorText>}
                 <BaseButton
                     onClickHandler={loginHandler}
                 >

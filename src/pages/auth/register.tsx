@@ -1,4 +1,5 @@
 import { TextAlignE, TextVariantE } from "@/common/enums";
+import { validateEmail } from "@/common/helper";
 import { BaseButton, BaseCard, BaseInputText, BaseText, ClickableText, ErrorText, PasswordInput } from "@/components/atoms";
 import { RegisterService } from "@/services";
 import { Box } from "@mui/material";
@@ -15,8 +16,8 @@ const RegisterPage = () => {
     const [errors, setErrors] = useState({ name: "", email: "", password: "", passwordConfirm: "" });
 
     const router = useRouter();
-
     const token = typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
+
     useEffect(() => {
         if (token) {
             router.replace('/weather')
@@ -34,7 +35,11 @@ const RegisterPage = () => {
         if (!email) {
             newErrors.email = "Email is required";
         } else {
-            newErrors.email = "";
+            if (!validateEmail(email)) {
+                newErrors.email = "Input is not an email";
+            } else {
+                newErrors.email = "";
+            }
         }
 
         if (!password) {
