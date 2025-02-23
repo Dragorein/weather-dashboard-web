@@ -1,17 +1,17 @@
-import { baseCardI } from "@/interface/components/container.interface"
+import { baseCardI } from "@/common/interface/components/container.interface"
 import colors from "@/styles/colors";
 import { Card } from "@mui/material"
 
-const BaseCard = ({children} : baseCardI) => {
+const BaseCard = ({children, background = colors.secondary} : baseCardI) => {
     return (
         <Card
             style={{
                 display : 'flex',
                 flexDirection : 'column',
-                minWidth : '30rem',
                 padding : 24,
+                minWidth : 150,
                 gap : 12,
-                backgroundColor: colors.secondary,
+                backgroundColor: background,
                 color : colors.white,
                 borderRadius : 12,
             }}

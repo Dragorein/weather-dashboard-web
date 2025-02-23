@@ -3,7 +3,7 @@ import {
   reqRegisterI,
   resLoginI,
   resRegisterI,
-} from "@/interface/service";
+} from "@/common/interface/service";
 import { apiClientV1 } from "./axios";
 
 export const LoginService = async (body: reqLoginI): Promise<resLoginI> => {

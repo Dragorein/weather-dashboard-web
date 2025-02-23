@@ -1,4 +1,4 @@
-import { PasswordInputI } from "@/interface/components/input.interface";
+import { PasswordInputI } from "@/common/interface/components/input.interface";
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility"
 import VisibilityOff from "@mui/icons-material/VisibilityOff"

@@ -1,5 +1,5 @@
-import { ButtonVariantE } from "@/enums"
-import { iconButtonI } from "@/interface/components/buttons.interface"
+import { ButtonVariantE } from "@/common/enums"
+import { iconButtonI } from "@/common/interface/components/buttons.interface"
 import { Button } from "@mui/material"
 
 const iconButton = ({

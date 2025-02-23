@@ -1,6 +1,6 @@
 import { BaseButton, BaseText, BaseInputText, PasswordInput } from "@/components/atoms";
 import BaseCard from "@/components/atoms/Container/card";
-import { TextAlignE, TextVariantE } from "@/enums";
+import { TextAlignE, TextVariantE } from "@/common/enums";
 import { LoginService } from "@/services";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

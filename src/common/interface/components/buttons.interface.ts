@@ -1,4 +1,4 @@
-import { ButtonVariantE } from "@/enums";
+import { ButtonVariantE } from "@/common/enums";
 import { ReactNode } from "react";
 
 export interface baseButtonI {

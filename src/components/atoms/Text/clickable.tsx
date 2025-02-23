@@ -1,5 +1,5 @@
-import { TextAlignE, TextVariantE } from "@/enums";
-import { ClickableTextI } from "@/interface/components/text.interface";
+import { TextAlignE, TextVariantE } from "@/common/enums";
+import { ClickableTextI } from "@/common/interface/components/text.interface";
 import colors from "@/styles/colors";
 import { Typography } from "@mui/material";
 

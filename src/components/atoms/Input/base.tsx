@@ -1,4 +1,4 @@
-import { baseInputI } from "@/interface/components/input.interface";
+import { baseInputI } from "@/common/interface/components/input.interface";
 import colors from "@/styles/colors";
 import { FormControl, InputLabel, OutlinedInput } from "@mui/material";
 import { useState } from "react";

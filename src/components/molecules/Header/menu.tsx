@@ -1,5 +1,5 @@
-import { ButtonVariantE } from "@/enums";
-import { headerMenuI } from "@/interface/components/header.interface";
+import { ButtonVariantE } from "@/common/enums";
+import { headerMenuI } from "@/common/interface/components/header.interface";
 import colors from "@/styles/colors";
 import { Button, Menu, MenuItem } from "@mui/material"
 import { useState } from "react";

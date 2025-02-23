@@ -1,5 +1,5 @@
 import { BaseButton, BaseCard, BaseInputText, BaseText, ClickableText, PasswordInput } from "@/components/atoms";
-import { TextAlignE, TextVariantE } from "@/enums";
+import { TextAlignE, TextVariantE } from "@/common/enums";
 import { RegisterService } from "@/services";
 import { Box } from "@mui/material";
 import { useRouter } from "next/router";

@@ -1,4 +1,4 @@
-import { SearchInputI } from "@/interface/components/input.interface";
+import { SearchInputI } from "@/common/interface/components/input.interface";
 import colors from "@/styles/colors";
 import { Search } from "@mui/icons-material";
 import { IconButton, InputAdornment, OutlinedInput, } from "@mui/material";

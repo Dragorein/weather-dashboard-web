@@ -1,4 +1,4 @@
-import { TextAlignE, TextVariantE } from "@/enums";
+import { TextAlignE, TextVariantE } from "@/common/enums";
 
 export interface baseTextI {
   children: string;

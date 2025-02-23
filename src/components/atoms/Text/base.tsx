@@ -1,5 +1,5 @@
-import { TextAlignE, TextVariantE } from "@/enums";
-import { baseTextI } from "@/interface/components/text.interface";
+import { TextAlignE, TextVariantE } from "@/common/enums";
+import { baseTextI } from "@/common/interface/components/text.interface";
 import { Typography } from "@mui/material";
 
 
