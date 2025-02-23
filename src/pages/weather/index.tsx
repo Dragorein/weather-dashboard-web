@@ -1,5 +1,5 @@
 
-import { SearchInput } from "@/components/atoms";
+import { ErrorPopup, SearchInput } from "@/components/atoms";
 import { HeaderMenu } from "@/components/molecules";
 import { ForecastWeather, HistoryWeather, SummaryWeather } from "@/features";
 import { resForecastSearchI, resWeatherSearchI } from "@/common/interface/service/weather/response.interface";
@@ -35,15 +35,23 @@ const WeatherPage = () => {
     const [forecast, setForecast] = useState<resForecastSearchI[]>([]);
     const [history, setHistory] = useState<resWeatherSearchI[]>([]);
     const [username, setUsername] = useState<string>('Guest');
+    const [errorMessage, setErrorMessage] = useState("");
+    const [showError, setShowError] = useState(false);
 
     const router = useRouter();
     
     const findWeather = async (location : string) => {
         const data = await SearchWeather({
             location : location
+        }).catch(error => {
+            setErrorMessage(error.response?.data?.error || "An error occurred during login.");
+            setShowError(true);
         });
-        setWeather(data.data.weather);
-        setForecast(data.data.forecast);
+
+        if (data) {
+            setWeather(data.data.weather);
+            setForecast(data.data.forecast);
+        }
     }
 
     const getInitialData = async () => {
@@ -75,7 +83,10 @@ const WeatherPage = () => {
     }
     
     const getHistory = async () => {
-        const data = await GetWeather();
+        const data = await GetWeather().catch(error => {
+            setErrorMessage(error.response?.data?.error || "An error occurred during login.");
+            setShowError(true);
+        });;
         setHistory(data.data);
     }
     
@@ -134,6 +145,7 @@ const WeatherPage = () => {
                     <HistoryWeather data={history} />
                 </Box>
             </Box>
+            {showError && <ErrorPopup message={errorMessage} onClose={() => setShowError(false)} />}
         </Box>
     )
 }

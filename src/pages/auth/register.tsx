@@ -1,6 +1,6 @@
 import { TextAlignE, TextVariantE } from "@/common/enums";
 import { validateEmail } from "@/common/helper";
-import { BaseButton, BaseCard, BaseInputText, BaseText, ClickableText, ErrorText, PasswordInput } from "@/components/atoms";
+import { BaseButton, BaseCard, BaseInputText, BaseText, ClickableText, ErrorPopup, ErrorText, PasswordInput } from "@/components/atoms";
 import { RegisterService } from "@/services";
 import { Box } from "@mui/material";
 import { useRouter } from "next/router";
@@ -14,6 +14,8 @@ const RegisterPage = () => {
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
     const [errors, setErrors] = useState({ name: "", email: "", password: "", passwordConfirm: "" });
+    const [errorMessage, setErrorMessage] = useState("");
+    const [showError, setShowError] = useState(false);
 
     const router = useRouter();
     const token = typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
@@ -66,9 +68,14 @@ const RegisterPage = () => {
             name : name,
             email : email,
             password : password
+        }).then(() => {
+            router.push('/auth/login');
+        })
+        .catch(error => {
+            setErrorMessage(error.response?.data?.error || "An error occurred during login.");
+            setShowError(true);
         });
 
-        router.push('/auth/login');
     }
 
     const backToLogin = () => {
@@ -128,6 +135,7 @@ const RegisterPage = () => {
                 <Box sx={{display : 'flex', flexDirection:'row'}} gap={1}>
                     <BaseText>Already have an account?</BaseText><ClickableText onClickHandler={backToLogin}>Login</ClickableText>
                 </Box>
+                {showError && <ErrorPopup message={errorMessage} onClose={() => setShowError(false)} />}
             </BaseCard>
         </div>
     )

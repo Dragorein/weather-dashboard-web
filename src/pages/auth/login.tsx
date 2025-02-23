@@ -1,4 +1,4 @@
-import { BaseButton, BaseText, BaseInputText, PasswordInput, ClickableText, ErrorText } from "@/components/atoms";
+import { BaseButton, BaseText, BaseInputText, PasswordInput, ClickableText, ErrorText, ErrorPopup } from "@/components/atoms";
 import BaseCard from "@/components/atoms/Container/card";
 import { TextAlignE, TextVariantE } from "@/common/enums";
 import { LoginService } from "@/services";
@@ -12,8 +12,9 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({ email: "", password: "" });
+    const [errorMessage, setErrorMessage] = useState("");
+    const [showError, setShowError] = useState(false);
 
-    
     const router = useRouter();
     const token = typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
 
@@ -61,7 +62,8 @@ const LoginPage = () => {
             router.replace('/weather');
         })
         .catch(error => {
-            console.log("error", error.response.data.error);
+            setErrorMessage(error.response?.data?.error || "An error occurred during login.");
+            setShowError(true);
         });
 
     }
@@ -101,6 +103,7 @@ const LoginPage = () => {
                 <Box sx={{display : 'flex', flexDirection:'row'}} gap={1}>
                     <BaseText>{`Don't have an account yet?`}</BaseText><ClickableText onClickHandler={registerUser}>Register</ClickableText>
                 </Box>
+                {showError && <ErrorPopup message={errorMessage} onClose={() => setShowError(false)} />}
             </BaseCard>
         </div>
     )
